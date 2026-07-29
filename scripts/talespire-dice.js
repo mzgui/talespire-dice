@@ -2,7 +2,8 @@ Hooks.once("ready", () => {
   console.log("talespire-dice | Initializing talespire-dice");
   if (!(game.modules.has("betterrolls5e") && game.modules.get("betterrolls5e").active)) {
     Hooks.on("preCreateChatMessage", (msg) => {
-      processRolls(msg);
+      // É necessário retornar o resultado para que o Foundry saiba se deve ou não cancelar a mensagem
+      return processRolls(msg); 
     });
   }
   else {
@@ -26,14 +27,17 @@ Hooks.once("init", () => {
 });
 
 function parseFlavorText(flavor) {
+  if (!flavor) return "dice";
   if (flavor.indexOf("<") > -1) {
-    flavor = flavor.match(/>(.+?)</)[1];
+    let match = flavor.match(/>(.+?)</);
+    if (match) flavor = match[1];
     flavor = flavor.replace(/:/g, "");
   }
   return encodeURI(flavor);
 }
 
 function parseRollFormula(formula) {
+  if (!formula) return "nodice";
   if (formula.indexOf("*") > -1) {
     return "crit";
   }
@@ -56,38 +60,33 @@ function addMods(formula) {
   return dice.join("+") + (mods >= 0 ? "+" : "") + mods;
 }
 
-async function processRolls(msg) {
-  let flavor;
+// Removido o 'async' para que o 'return false' funcione e bloqueie o chat quando necessário
+function processRolls(msg) {
+  let flavor = "dice";
   let formula;
-  let isRoll;
+  let isRoll = false;
 
-  if (parseFloat(game.version) >= 9 || parseFloat(game.data.version) >= 0.8) {
-    if (msg.isRoll) {
-      flavor = msg.roll.options.flavor ? parseFlavorText(msg.roll.options.flavor) : "dice";
-      formula = parseRollFormula(msg.roll.formula);
-      isRoll = msg.isRoll;
-    }
-  }
-  else {
-    if (msg.roll) {
-      flavor = msg.flavor ? parseFlavorText(msg.flavor) : "dice";
-      formula = parseRollFormula(JSON.parse(msg.roll).formula);
-      isRoll = msg.roll ? true : false;
-    }
+  // Atualizado para a API do Foundry V10+ (onde usamos msg.rolls ao invés de msg.roll)
+  if (msg.isRoll && msg.rolls && msg.rolls.length > 0) {
+    isRoll = true;
+    // O flavor pode estar na mensagem ou nas opções da primeira rolagem
+    let rawFlavor = msg.flavor || (msg.rolls[0].options && msg.rolls[0].options.flavor);
+    flavor = parseFlavorText(rawFlavor);
+    formula = parseRollFormula(msg.rolls[0].formula);
   }
 
   if (isRoll && game.settings.get("talespire-dice", "rollFoundry") !== 1) {
-    if (formula == "crit") {
+    if (formula === "crit") {
       ui.notifications.error("Talespire currently doesn't support multiplication to calculate critical hits. Please roll damage normally then double it.");
-      return false;
+      return false; // Cancela no Foundry também para manter consistência
     }
-    if (formula == "nodice") {
+    if (formula === "nodice") {
       console.log("talespire-dice | No dice roll found.");
     }
     else {
       window.open("talespire://dice/" + flavor + ":" + formula);
-      if (game.settings.get("talespire-dice", "rollFoundry") == 0) {
-        return false;
+      if (game.settings.get("talespire-dice", "rollFoundry") === 0) {
+        return false; // Retorna falso para impedir que o Foundry role o dado virtual dele
       }
     }
   }
