@@ -41,7 +41,10 @@ To install this module in your Foundry VTT world, use the Manifest URL directly 
 
 ## 📝 Changelog
 
-### Version 0.2.0 (mzgui)
+### Version 0.2.1 (QoL Hotfix - mzgui)
+* **Silent Execution:** Replaced the legacy `window.open()` method with a self-destructing hidden `iframe`. This prevents the browser from opening and accumulating annoying blank tabs/windows every time a dice roll is sent to TaleSpire. 
+
+### Version 0.2.0 (Community Modernization - mzgui)
 * **V14 Compatibility:** Module fully upgraded to support Foundry VTT V14 (Build 365).
 * **Manifest Overhaul:** Modernized the `module.json` structure, implementing the mandatory `id` key and updating the `compatibility` blocks to prevent installation failures on modern servers.
 * **Roll API Refactor:** Rewrote `talespire-dice.js` to parse data from the new `msg.rolls` array format introduced in the Foundry V10+ API.
@@ -53,8 +56,6 @@ To install this module in your Foundry VTT world, use the Manifest URL directly 
 ### Version 0.1.1 (Original Author)
 * Added a warning when BetterRolls5e is enabled.
 * Added validation to ensure a dice roll exists before sending data to Talespire.
-
----
 
 ## 🛠️ Credits
 
