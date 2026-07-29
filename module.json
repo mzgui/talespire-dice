@@ -15,11 +15,6 @@
     "minimum": "10",
     "verified": "14"
   },
-  "systems": [
-    {
-      "id": "dnd5e"
-    }
-  ],
   "url": "https://github.com/mzgui/talespire-dice",
   "manifest": "https://raw.githubusercontent.com/mzgui/talespire-dice/main/module.json",
   "download": "https://github.com/mzgui/talespire-dice/archive/refs/heads/main.zip",
