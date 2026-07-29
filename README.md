@@ -4,7 +4,7 @@ Send Foundry dice roll formulas to Talespire.
 
 ##  Installation
 1. Under "Add-on Modules" click "Install Module"
-2. Paste `https://github.com/DeVelox/talespire-dice/raw/main/module.json` into the "Manfiest URL" field
+2. Paste `https://github.com/mzgui/talespire-dice/raw/main/module.json` into the "Manfiest URL" field
 3. Click "Install"
 
 ## Notes
