@@ -18,9 +18,6 @@
   "systems": [
     {
       "id": "dnd5e"
-    },
-    {
-      "id": "pf2e"
     }
   ],
   "url": "https://github.com/mzgui/talespire-dice",
