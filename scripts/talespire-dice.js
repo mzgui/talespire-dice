@@ -84,7 +84,17 @@ function processRolls(msg) {
       console.log("talespire-dice | No dice roll found.");
     }
     else {
-      window.open("talespire://dice/" + flavor + ":" + formula);
+      // CORREÇÃO: Envia o comando para o TaleSpire sem abrir uma nova aba
+      const talespireUrl = "talespire://dice/" + flavor + ":" + formula;
+      
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      iframe.src = talespireUrl;
+      document.body.appendChild(iframe);
+      
+      // Remove o elemento invisível após 1 segundo para manter o Foundry limpo
+      setTimeout(() => document.body.removeChild(iframe), 1000);
+
       if (game.settings.get("talespire-dice", "rollFoundry") === 0) {
         return false; // Retorna falso para impedir que o Foundry role o dado virtual dele
       }
