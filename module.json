@@ -1,19 +1,28 @@
 {
   "id": "talespire-dice",
-  "name": "talespire-dice",
   "title": "Talespire Dice Relay",
   "description": "Send Foundry dice roll formulas to Talespire.",
-  "author": "DeVelox",
-  "version": "0.1.2",
-  "systems": [
-    "dnd5e",
-    "pf2e"
+  "version": "0.1.3",
+  "authors": [
+    {
+      "name": "mzgui"
+    }
   ],
-  "minimumCoreVersion": "0.7.5",
-  "compatibleCoreVersion": "9.238",
-  "url": "https://github.com/DeVelox/talespire-dice",
-  "manifest": "https://github.com/mzgui/talespire-dice/raw/main/module.json",
-  "download": "https://github.com/mzgui/talespire-dice/archive/main.zip",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "12"
+  },
+  "systems": [
+    {
+      "id": "dnd5e"
+    },
+    {
+      "id": "pf2e"
+    }
+  ],
+  "url": "https://github.com/mzgui/talespire-dice",
+  "manifest": "https://raw.githubusercontent.com/mzgui/talespire-dice/main/module.json",
+  "download": "https://github.com/mzgui/talespire-dice/archive/refs/heads/main.zip",
   "esmodules": [
     "scripts/talespire-dice.js"
   ]
