@@ -41,7 +41,7 @@ To install this module in your Foundry VTT world, use the Manifest URL directly 
 
 ## 📝 Changelog
 
-### Version 0.1.6 (Community Modernization - mzgui)
+### Version 0.2.0 (mzgui)
 * **V14 Compatibility:** Module fully upgraded to support Foundry VTT V14 (Build 365).
 * **Manifest Overhaul:** Modernized the `module.json` structure, implementing the mandatory `id` key and updating the `compatibility` blocks to prevent installation failures on modern servers.
 * **Roll API Refactor:** Rewrote `talespire-dice.js` to parse data from the new `msg.rolls` array format introduced in the Foundry V10+ API.
