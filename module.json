@@ -1,4 +1,5 @@
 {
+  "id": "talespire-dice",
   "name": "talespire-dice",
   "title": "Talespire Dice Relay",
   "description": "Send Foundry dice roll formulas to Talespire.",
